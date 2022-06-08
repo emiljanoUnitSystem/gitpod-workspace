@@ -1,30 +1,18 @@
-INSERT INTO "public"."messages" ("id", "room_id", "user_id", "message","date_time_created")
-
-
+ INSERT INTO "public"."users" ("id", "name")
 
 -- Describe the dataset:
 SELECT
-CONCAT('m', "r") AS "id",
-CONCAT('r', floor(random() * (10 - 1 + 1) + 1)) AS "room_id",
-CONCAT('t', floor(random() * (10 - 1 + 1) + 1)) AS "user_id",
-CONCAT('Message', "r") AS "message",
-CURRENT_TIMESTAMP AS "date_time_created"
-
-
+CONCAT('t', "u") AS "id",
+CONCAT('Name', "u") AS "name"
 
 -- Set the size of the dataset:
-FROM generate_series(1, 10) AS "r"
-
-
+FROM generate_series(1, 100) AS "u"
 
 -- Manage conflicts with existing values:
-ON CONFLICT ON CONSTRAINT PK_messages_id
+ON CONFLICT ON CONSTRAINT "users_pkey"
 DO UPDATE SET
-"room_id" = EXCLUDED."room_id",
-"user_id" = EXCLUDED."user_id",
-"message" = EXCLUDED."message"
-
+"name" = EXCLUDED."name"
 
 
 -- Return the dataset that was produced:
-RETURNING *
+RETURNING *;
